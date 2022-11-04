@@ -16,9 +16,9 @@ services:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
+    command: "/main -producer"
     networks:
       - proxy
-    command: "/main -producer"
     deploy:
       update_config:
         order: start-first
