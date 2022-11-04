@@ -5,7 +5,7 @@ services:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
-    command: "-producer"
+    command: "-mode producer"
     networks:
       - proxy
     deploy:
@@ -16,7 +16,7 @@ services:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
-    command: "-consumer"
+    command: "-mode consumer"
     networks:
       - proxy
     deploy:
