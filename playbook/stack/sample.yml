@@ -1,22 +1,22 @@
 version: '3.5'
 
 services:
-  rabbitconsumer:
+  rabbitproducer:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
-    command: "/main -consumer"
+    command: "/main -producer"
     networks:
       - proxy
     deploy:
       update_config:
         order: start-first
 
-  rabbitproducer:
+  rabbitconsumer:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
-    command: "/main -producer"
+    command: "/main -consumer"
     networks:
       - proxy
     deploy:
