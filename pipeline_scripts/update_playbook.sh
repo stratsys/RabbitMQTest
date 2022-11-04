@@ -17,18 +17,4 @@ docker run --rm \
 --email "$GITHUB_PLAYBOOK_EMAIL" \
 --author "$GITHUB_PLAYBOOK_AUTHOR" \
 --verbosity 4 \
-copy sample:rabbitproducer 
-
-docker run --rm \
--v "$(pwd)/playbook:/playbook" \
--w /playbook \
-"$CONTAINER_REGISTRY/stratsys-envhandler:latest" \
---destination "$GITHUB_PLAYBOOK_BRANCH" \
---localSource /playbook \
---imageTag "$IMAGE_TAG" \
---token "$GITHUB_PLAYBOOK_TOKEN" \
---url "$GITHUB_PLAYBOOK_URL" \
---email "$GITHUB_PLAYBOOK_EMAIL" \
---author "$GITHUB_PLAYBOOK_AUTHOR" \
---verbosity 4 \
-copy sample:rabbitconsumer
+copy sample:rabbitproducer sample:rabbitconsumer 
