@@ -5,7 +5,7 @@ services:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
-    command: ["/main", "-consumer"]
+    command: "/main -consumer"
     networks:
       - proxy
     deploy:
@@ -18,7 +18,7 @@ services:
       FOO: "BAR"
     networks:
       - proxy
-    command: ["/main", "-producer"]
+    command: "/main -producer"
     deploy:
       update_config:
         order: start-first
