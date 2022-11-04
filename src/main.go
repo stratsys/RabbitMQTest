@@ -31,16 +31,14 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	err = ch.ExchangeDeclare(
-		"swarmtest", // name
-		"fanout",    // type
-		true,        // durable
-		false,       // auto-deleted
-		false,       // internal
-		false,       // no-wait
-		nil,         // arguments
+	err = ch.QueueBind(
+		q.Name,          // queue name
+		"",              // routing key
+		"demo.exchange", // exchange
+		false,
+		nil,
 	)
-	failOnError(err, "Failed to declare a exchange ")
+	failOnError(err, "Failed to bind a queue")
 
 	msgs, err := ch.Consume(
 		q.Name, // queue

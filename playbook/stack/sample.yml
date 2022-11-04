@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  go2:
+  go:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
