@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: publish-queue
+    version:  latest
+  name: publish-queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publish-queue
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        k8s.stratsys.net/team: Team Infrastructure
+      labels:
+        app: publish-queue
+        version:  latest
+    spec:
+      containers:
+      - image: registry.proxy.office.stratsys.net/docker-io/pivotalrabbitmq/perf-test:latest
+        name: publish
+        env:
+        - name:  VARIABLE_RATE
+          value: "15:30,150:10,50:60,1:10,300:3,50:60,5000:5"
+        # command: ["/bin/sh"]
+        # args: ["-c", "while true; do echo hello; sleep 60;done"]
+        args:
+        - --uri 
+        - amqp://admin:queueAdmin@queue.dev-backends
+        - --exchange
+        - "demo.exchange"
+        - --producers
+        - "1"
+        - --consumers
+        - "0"
+        - --auto-delete
+        - "false"
+        - --json-body
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"        
+...

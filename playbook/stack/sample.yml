@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  go:
+    image: "${GO_SAMPLE_SERVICE_IMAGE}"
+    environment:
+      FOO: "BAR"
+    networks:
+      - proxy
+    deploy:
+      update_config:
+        order: start-first
+      labels:
+        - "traefik.port=8080"
+        - "traefik.frontend.rule=HostRegexp:go_sample.{domain:.*}"
+        - "traefik.backend.loadbalancer.swarm=true"
+
+networks:
+  proxy:
+    external: true
+    name: stratsys_swarm_proxy

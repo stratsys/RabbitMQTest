@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: sample-go
+build:
+  tagPolicy:
+    gitCommit: {}
+  artifacts:
+  - image: registry.proxy.office.stratsys.net/daily/sample-go
+  #   kaniko: {}
+  # cluster:
+  #   namespace: dev
+  #   pullSecretName: incluster-builder
+  #   pullSecretMountPath:  /kaniko/.docker/
+deploy:
+  helm:
+    releases:
+    - name: queue-exchange-producer
+      chartPath: helm
+      artifactOverrides:
+        image: registry.proxy.office.stratsys.net/daily/sample-go
+      #  setValues:
+      #     hooks.debug: "false"
+      valuesFiles: 
+        - helm/values-dev.yaml
+      imageStrategy:
+        helm: {}
