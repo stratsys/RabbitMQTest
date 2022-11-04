@@ -1,4 +1,4 @@
-module main
+module github.com/stratsys/RabbitMQTest
 
 go 1.19
 

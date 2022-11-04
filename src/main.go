@@ -3,9 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"main/consumer"
-	"main/producer"
 	"os"
+
+	"github.com/stratsys/RabbitMQTest/consumer"
+	"github.com/stratsys/RabbitMQTest/producer"
 )
 
 func main() {

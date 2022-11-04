@@ -1,7 +1,8 @@
 FROM golang:1.19.2-alpine3.16 as builder
 WORKDIR /build
 COPY src/go.mod src/go.sum /build/
-COPY src/* ./
+RUN go mod download
+COPY src/ /build
 RUN CGO_ENABLED=0 go build -o main
 
 FROM scratch
