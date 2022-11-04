@@ -1,19 +1,27 @@
 version: '3.5'
 
 services:
-  go:
+  rabbitconsumer:
     image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
+    command: ["/main", "-consumer"]
     networks:
       - proxy
     deploy:
       update_config:
         order: start-first
-      labels:
-        - "traefik.port=8080"
-        - "traefik.frontend.rule=HostRegexp:go_sample.{domain:.*}"
-        - "traefik.backend.loadbalancer.swarm=true"
+
+  rabbitproducer:
+    image: "${RABBITMQ_CONSUMER}"
+    environment:
+      FOO: "BAR"
+    networks:
+      - proxy
+    command: ["/main", "-producer"]
+    deploy:
+      update_config:
+        order: start-first
 
 networks:
   proxy:
