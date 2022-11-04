@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   go:
-    image: "${GO_SAMPLE_SERVICE_IMAGE}"
+    image: "${RABBITMQ_CONSUMER}"
     environment:
       FOO: "BAR"
     networks:

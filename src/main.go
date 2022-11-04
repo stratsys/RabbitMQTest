@@ -31,6 +31,17 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
+	err = ch.ExchangeDeclare(
+		"swarmtest", // name
+		"fanout",    // type
+		true,        // durable
+		false,       // auto-deleted
+		false,       // internal
+		false,       // no-wait
+		nil,         // arguments
+	)
+	failOnError(err, "Failed to declare a exchange ")
+
 	msgs, err := ch.Consume(
 		q.Name, // queue
 		"",     // consumer
