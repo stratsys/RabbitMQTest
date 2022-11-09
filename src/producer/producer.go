@@ -50,6 +50,9 @@ func InitProducer() {
 				ContentType: "text/plain",
 				Body:        []byte(jsonBody),
 			})
+		if i%100 == 0 {
+			time.Sleep(5 * time.Second)
+		}
 		failOnError(err, "Failed to publish a message")
 		log.Printf(" [x] Sent %s\n", jsonBody)
 	}
